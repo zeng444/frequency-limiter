@@ -11,8 +11,8 @@ $redisConfig = [
 ];
 $frequencyLimiter = new FrequencyLimiter($redisConfig);
 $result = $frequencyLimiter->setRules([
-    ['interval' => 10, 'limit' => 51, 'name' => 'clock0:user:752'],
-    ['interval' => 30, 'limit' => 200, 'name' => 'clock1:user:752'],
+    ['interval' => 10, 'limit' => 3, 'name' => 'clock0:user:752'],
+    //    ['interval' => 30, 'limit' => 200, 'name' => 'clock1:user:752'],
 ])->check();
 $message = time().($result ? 'YES'.PHP_EOL : ''.PHP_EOL);
 echo $message;
