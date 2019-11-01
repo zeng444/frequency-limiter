@@ -30,6 +30,7 @@ class Limiter extends \Predis\Command\ScriptCommand
         return <<<LUA
             local bucketName = KEYS[1]
             local interval = tonumber(KEYS[2])
+            local expire = (interval / 1000) + 3
             local limit = tonumber(KEYS[3])
             local bucket = redis.call('hgetall',bucketName)
             if (bucket[1]) then
@@ -50,15 +51,18 @@ class Limiter extends \Predis\Command\ScriptCommand
               end
               if ( currentRemain < 1 ) then
                 redis.call('hmset',bucketName,'createAt',currentTime,'remain',currentRemain)
+                redis.call('expire',bucketName,expire)
                 return false
               else
                 redis.call('hmset',bucketName,'createAt',currentTime,'remain',currentRemain-1)
+                redis.call('expire',bucketName,expire)
               return true
               end
             else
               local redisTime = redis.call('time')
               local currentTime =  redisTime[1]*1000 + (math.floor(redisTime[2]/1000))
               redis.call('hmset',bucketName,'createAt',currentTime,'remain',limit-1)
+              redis.call('expire',bucketName,expire)
               return true
             end
 LUA;
