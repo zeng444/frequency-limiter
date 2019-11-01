@@ -1,0 +1,20 @@
+{
+  "name": "janfish/frequency-limiter",
+  "description": "Frequency limiter base on token bucket algorithm",
+  "authors": [
+    {
+      "name": "Robert",
+      "email": "zeng444@163.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4",
+    "predis/predis": "^1.1"
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Janfish\\Frequency\\": "src/"
+    }
+  }
+}
