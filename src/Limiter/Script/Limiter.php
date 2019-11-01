@@ -3,6 +3,7 @@
 namespace Janfish\Frequency\Limiter\Script;
 
 /**
+ * LUA SCRIPT FOR REDIS
  * Author:Robert
  *
  * Class Limiter
@@ -21,6 +22,7 @@ class Limiter extends \Predis\Command\ScriptCommand
     }
 
     /**
+     * Token bucket check
      * Author:Robert
      *
      * @return string

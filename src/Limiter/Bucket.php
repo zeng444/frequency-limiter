@@ -41,7 +41,6 @@ class Bucket
      */
     protected $intervalIncrement;
 
-
     /**
      *
      * Author:Robert
@@ -104,20 +103,9 @@ class Bucket
             throw  new \Exception('Set a wrong value for limit param');
         }
         $this->_redisConfig = $redisConfig;
-        $this->intervalIncrement = $this->getIntervalIncrement();
         $this->_redisInstance = self::redisInstance($this->_redisConfig);
     }
 
-
-    /**
-     * Author:Robert
-     *
-     * @return float
-     */
-    public function getIntervalIncrement()
-    {
-        return $this->limit / $this->interval;
-    }
 
     /**
      * Author:Robert
