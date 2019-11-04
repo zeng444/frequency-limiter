@@ -4,8 +4,8 @@
 
 ## Main features
 
-- implement this feature by lua script 
-- shared locks are implemented when concurrent requests occur
+- Implement this feature by lua script 
+- Shared locks are implemented when concurrent requests occur
 
 ## How to use
 
@@ -18,8 +18,9 @@ $redisConfig = [
 ];
 $frequencyLimiter = new FrequencyLimiter($redisConfig);
 $result = $frequencyLimiter->setRules([
-    ['interval' => 10, 'limit' => 51, 'name' => 'clock0:userId:752'],
-    ['interval' => 30, 'limit' => 200, 'name' => 'clock1:userId:752'],
+    ['interval' => 10, 'limit' => 5, 'name' => 'clock0:userId:752'],
+    ['interval' => 35, 'limit' => 15, 'name' => 'clock1:userId:752'],
+    ['interval' => 80, 'limit' => 30, 'name' => 'clock2:userId:752'],
 ]);
 if (!$frequencyLimiter->check()) {
     die('Get out of my way!');
