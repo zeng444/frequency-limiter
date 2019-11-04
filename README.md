@@ -22,7 +22,7 @@ $result = $frequencyLimiter->setRules([
     ['interval' => 30, 'limit' => 200, 'name' => 'clock1:userId:752'],
 ]);
 if (!$frequencyLimiter->check()) {
-    die('Get out my way!');
+    die('Get out of my way!');
 }
 ```
 
@@ -30,9 +30,9 @@ if (!$frequencyLimiter->check()) {
 
 | key     |  type    |  desc  |
 |---------|----------|-----------|
-| interval | int      | 间隔时间，单位秒    |
-| limit    | int      | 添加到桶里的token数 |
-| name     | string    | 筒的唯一标识名        |
+| interval | int      | Interval time in seconds    |
+| limit    | int      | Token quantity |
+| name     | string    | Name of bucket       |
 
 
 ## Reference
