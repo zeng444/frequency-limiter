@@ -20,6 +20,11 @@ class Limiter
      */
     private $_rules = [];
 
+    /**
+     * @var array
+     */
+    private $_currentRuleIndex = [];
+
 
     /**
      * Author:Robert
@@ -83,13 +88,22 @@ class Limiter
         if ($rules) {
             $this->_rules = $rules;
         }
-        foreach ($this->_rules as $rule) {
+        foreach ($this->_rules as $index => $rule) {
             $bucket = new Bucket($rule, $this->_config);
             if (!$bucket->check()) {
+                $this->_currentRuleIndex = $index;
                 return false;
             }
         }
         return true;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCurrentRuleIndex()
+    {
+        return $this->_currentRuleIndex;
     }
 
 }
