@@ -10,10 +10,14 @@ $redisConfig = [
     'database' => 5,
 ];
 $frequencyLimiter = new FrequencyLimiter($redisConfig);
-$result = $frequencyLimiter->setRules([
-    ['interval' => 10, 'limit' => 3, 'name' => 'clock0:user:752'],
-    //    ['interval' => 30, 'limit' => 200, 'name' => 'clock1:user:752'],
-])->check();
-$message = time().($result ? 'YES'.PHP_EOL : ''.PHP_EOL);
-echo $message;
-error_log($message, 3, 'access.log');
+$rules = [
+    ['interval' => 5, 'limit' => 1, 'name' => 'cd1:user:752','msg'=>'单位时间请求5秒内不能大于1次'],
+    ['interval' => 10, 'limit' => 3, 'name' => 'cd2:user:752','msg'=>'单位时间请求10秒内不能大于3次'],
+
+];
+$result = $frequencyLimiter->setRules($rules)->check();
+if (!$result) {
+    echo $rules[$frequencyLimiter->getCurrentRuleIndex()]['msg'] . PHP_EOL;
+    die();
+}
+echo 'OK' . PHP_EOL;

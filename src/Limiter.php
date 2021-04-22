@@ -23,7 +23,7 @@ class Limiter
     /**
      * @var array
      */
-    private $_currentRuleIndex = [];
+    private $_currentRuleIndex = null;
 
 
     /**
@@ -90,12 +90,11 @@ class Limiter
         }
         foreach ($this->_rules as $index => $rule) {
             $bucket = new Bucket($rule, $this->_config);
-            if (!$bucket->check()) {
+            if (!$bucket->check() && $this->_currentRuleIndex === null) {
                 $this->_currentRuleIndex = $index;
-                return false;
             }
         }
-        return true;
+        return $this->_currentRuleIndex === null;
     }
 
     /**
