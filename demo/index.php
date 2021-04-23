@@ -20,4 +20,6 @@ if (!$result) {
     echo $rules[$frequencyLimiter->getCurrentRuleIndex()]['msg'] . PHP_EOL;
     die();
 }
+$frequencyLimiter->reset();
+
 echo 'OK' . PHP_EOL;

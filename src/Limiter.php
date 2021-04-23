@@ -98,6 +98,24 @@ class Limiter
     }
 
     /**
+     * @param int|null $index
+     * @return bool
+     * @throws \Exception
+     */
+    public function reset(int $index = null)
+    {
+        $rules = $index === null ? $this->_rules : [$this->_rules[$index]];
+        $hasError = false;
+        foreach ($rules as $index => $rule) {
+            $result = (new Bucket($rule, $this->_config))->reset();
+            if (!$result && $hasError === false) {
+                $hasError = true;
+            }
+        }
+        return !$hasError;
+    }
+
+    /**
      * @return array
      */
     public function getCurrentRuleIndex()

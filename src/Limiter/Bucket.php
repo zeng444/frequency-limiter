@@ -118,6 +118,14 @@ class Bucket
     }
 
     /**
+     * @return int
+     */
+    public function reset()
+    {
+        return $this->_redisInstance->del([$this->getBucketKey()]);
+    }
+
+    /**
      * Author:Robert
      *
      * @return bool

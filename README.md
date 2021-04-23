@@ -23,8 +23,23 @@ $result = $frequencyLimiter->setRules([
     ['interval' => 80, 'limit' => 30, 'name' => 'clock2:userId:752'],
 ]);
 if (!$frequencyLimiter->check()) {
-    die('Get out of my way!');
+    die($frequencyLimiter->getCurrentRuleIndex());
 }
+
+```
+
+```php
+$frequencyLimiter = new FrequencyLimiter($redisConfig);
+$result = $frequencyLimiter->setRules([
+    ['interval' => 10, 'limit' => 5, 'name' => $userName.':userId:752'],
+]);
+if (!$frequencyLimiter->check()) {
+    die('Maximum number of errors reached');
+}
+if($userName === 'accountName' && $password==='abc'){
+    $frequencyLimiter->reset();
+}
+echo "Login successful"
 ```
 
 ##  Rules configuration
